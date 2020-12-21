@@ -156,7 +156,7 @@ class FichaPage extends StatelessWidget {
             ),
             elevation: 0,
             textColor: Colors.white,
-            onPressed: animal.liberado? () => true : null,
+            onPressed: animal.liberado? () => Navigator.pushNamed(context, 'mapa') : null,
           ),
         ),
         SizedBox( height: 20)
