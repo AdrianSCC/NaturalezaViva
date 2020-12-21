@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 final int modoEdicion = 1;
+final int modoNuevo = 2;
 
 bool isNumeric(String s){
   if(s.isEmpty) return false;

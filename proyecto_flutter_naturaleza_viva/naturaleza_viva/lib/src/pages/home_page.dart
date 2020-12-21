@@ -53,7 +53,7 @@ class HomePage extends StatelessWidget {
           TableRow(
             children: [
               _boton(Icons.calendar_today, 'Agenda',context, 'registro'),
-              _boton(Icons.save, 'Crear ficha',context, 'registro')
+              _boton(Icons.save, 'Crear ficha',context, 'ficha')
             ]
           ),
         ],
@@ -101,7 +101,7 @@ class HomePage extends StatelessWidget {
                  Navigator.pushNamed(context, direccion);
               break;
             case 'ficha':
-                 Navigator.pushNamed(context, direccion);
+                 Navigator.pushNamed(context, 'edicion', arguments: modoNuevo);
               break;
             default:
           }

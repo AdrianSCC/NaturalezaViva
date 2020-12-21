@@ -33,7 +33,7 @@ class _FichaEdicionPageState extends State<FichaEdicionPage> {
   }
 
   _contenido(int modo, BuildContext context) {
-    if(modo==4){
+    if(modo==1){
       _setteoPruebas(animal);
       return Column(
         children: [
