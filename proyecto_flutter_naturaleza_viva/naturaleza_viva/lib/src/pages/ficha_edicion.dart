@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:naturaleza_viva/src/model/animal_model.dart';
+import 'package:naturaleza_viva/src/providers/animales_provider.dart';
 
 class FichaEdicionPage extends StatefulWidget {
 
@@ -9,6 +10,8 @@ class FichaEdicionPage extends StatefulWidget {
 
 class _FichaEdicionPageState extends State<FichaEdicionPage> {
   final animal =new AnimalModel();
+  final formKey = GlobalKey<FormState>();
+  final animalProvider = new AnimalesProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +22,17 @@ class _FichaEdicionPageState extends State<FichaEdicionPage> {
       appBar: AppBar(
         title: Text('Ficha'),
         actions: [
-          IconButton(icon: Icon(Icons.save, size: 30,), onPressed: (){}),
+          IconButton(icon: Icon(Icons.save, size: 30,), onPressed: (){_botonGuardar();}),
           IconButton(icon: Icon(Icons.cancel, size: 30,), onPressed: (){Navigator.pushNamed(context, 'home');}),
         ],
       ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(30),
-          child: _contenido(modo, context),
+          child: Form(
+            key: formKey,
+            child: _contenido(modo, context),
+          ), 
         ),
       ),
     );
@@ -43,7 +49,7 @@ class _FichaEdicionPageState extends State<FichaEdicionPage> {
           _formulario('Raza', animal.raza),
           _formulario('Estado', animal.estado),
           _formulario('Dieta', animal.dieta),
-          _formulario('Peso', animal.peso.toString()),//campo nunmerico
+          _formPeso('Peso', animal.peso.toString()),//campo nunmerico
           _formulario('Habitat', animal.habitat),
           _formulario('Anotaciones', animal.anotaciones),
         ],
@@ -110,7 +116,60 @@ class _FichaEdicionPageState extends State<FichaEdicionPage> {
         labelText: titulo,
         
       ),
-      onSaved: (value) => animal.nombre = value,
+      onSaved: (value) => _settearCampos(titulo, value),//(value) => animal.nombre = value,
+      validator: (value){
+        if(value.length<1){
+          return 'Ingrese contenido';
+        }else{
+          return null;
+        }
+      },
+    );
+  }
+
+  _settearCampos(String titulo, String valor) {
+    switch (titulo) {
+      case 'Nombre':
+        animal.nombre = valor;
+        break;
+      case 'Especie':
+        animal.especie = valor;
+        break;
+      case 'Raza':
+        animal.raza = valor;
+        break;
+      case 'Estado':
+        animal.estado = valor;
+        break;
+      case 'Dieta':
+        animal.dieta = valor;
+        break;
+      case 'Peso':
+        animal.peso = double.parse(valor);
+        break;
+      case 'Habitat':
+        animal.habitat = valor;
+        break;
+      case 'Anotaciones':
+        animal.anotaciones = valor;
+        break;
+      default:
+    }
+  }
+
+  _formPeso(String titulo, String dato) {
+
+    return TextFormField(
+      initialValue: dato,
+      textCapitalization: TextCapitalization.sentences,
+      readOnly: false,
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,),
+
+      decoration: InputDecoration(
+        labelText: titulo,
+        
+      ),
+      onSaved: (value) => animal.peso = double.parse(value),
       validator: (value){
         if(value.length<3){
           return 'Ingrese el nombre del producto';
@@ -120,5 +179,20 @@ class _FichaEdicionPageState extends State<FichaEdicionPage> {
       },
     );
   }
+
+  _botonGuardar() {
+    //Metodo para editar o guardar en la base de datos
+    if(!formKey.currentState.validate()) return;
+
+    formKey.currentState.save();
+
+    print(animal.estado);
+    print(animal.peso);
+
+    animalProvider.crearAnimal(animal);
+    
+  }
+
+  
 }
 

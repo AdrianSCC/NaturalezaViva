@@ -37,7 +37,7 @@ class AnimalModel {
     String dieta;
     String anotaciones;
     String habitat;
-    int peso;
+    double peso;
     bool liberado;
     String fotoPrincipal;
     List<String> fotografias;
@@ -62,7 +62,7 @@ class AnimalModel {
     );
 
     Map<String, dynamic> toJson() => {
-        "id": id,
+        //"id": id,
         "idSeguimiento": idSeguimiento,
         "qr": qr,
         "especie": especie,
@@ -75,7 +75,7 @@ class AnimalModel {
         "peso": peso,
         "liberado": liberado,
         "fotoPrincipal": fotoPrincipal,
-        "fotografias": List<dynamic>.from(fotografias.map((x) => x)),
-        "historialVeterinario": List<dynamic>.from(historialVeterinario.map((x) => x)),
+        //"fotografias": List<dynamic>.from(fotografias.map((x) => x)),
+        //"historialVeterinario": List<dynamic>.from(historialVeterinario.map((x) => x)),
     };
 }

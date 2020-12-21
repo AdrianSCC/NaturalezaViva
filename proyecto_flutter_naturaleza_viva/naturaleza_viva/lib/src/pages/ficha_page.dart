@@ -112,33 +112,6 @@ class FichaPage extends StatelessWidget {
 
   }
 
-//para la pagina de edicion
-  _formulario() {
-
-    return Row(
-      children: [
-        Text('Aqui ponemos tal: '),
-        Flexible(
-          child: TextFormField(
-            initialValue: 'animal.nombre y si esto es demasiado pero demasiado largo',
-            textCapitalization: TextCapitalization.sentences,
-            decoration: InputDecoration(
-              labelText: 'animal.nombre y si esto es demasiado pero demasiado largo'
-            ),
-            //onSaved: (value) => animal.nombre = value,
-            validator: (value){
-              if(value.length<3){
-                return 'Ingrese el nombre del producto';
-              }else{
-                return null;
-              }
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
   _botonSituacion(BuildContext context, String s) {
     final size = MediaQuery.of(context).size;
 
