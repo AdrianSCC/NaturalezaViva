@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:naturaleza_viva/src/bloc/provider_bloc.dart';
+import 'package:naturaleza_viva/src/model/animal_model.dart';
+import 'package:naturaleza_viva/src/providers/animales_provider.dart';
 import 'package:naturaleza_viva/src/utils/utils.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+
+  final animalProvider = new AnimalesProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +93,9 @@ class HomePage extends StatelessWidget {
                  String lectura = await FlutterBarcodeScanner.scanBarcode('#2c5243', 'Cancelar', false, ScanMode.QR);
                   // Si hemos leido un codigo qr y no hemos cancelado
                  if(lectura != '-1'){
-                    print(lectura);
-                    Navigator.pushNamed(context, 'ficha', arguments: ['prueba']);
+                    print('lectura -> '+ lectura);
+                    //AnimalModel animal = _buscarAnimal(lectura);
+                    Navigator.pushNamed(context, 'ficha', arguments: lectura);
                  }
               break;
             case 'chat':
@@ -101,7 +105,8 @@ class HomePage extends StatelessWidget {
                  Navigator.pushNamed(context, direccion);
               break;
             case 'ficha':
-                 Navigator.pushNamed(context, 'edicion', arguments: modoNuevo);
+                 AnimalModel animal = new AnimalModel();
+                 Navigator.pushNamed(context, 'edicion', arguments: [modoNuevo, animal]);
               break;
             default:
           }
@@ -111,6 +116,5 @@ class HomePage extends StatelessWidget {
   }
 
 
-  
 
 }

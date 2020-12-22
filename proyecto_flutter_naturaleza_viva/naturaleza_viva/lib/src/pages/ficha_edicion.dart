@@ -1,4 +1,7 @@
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:naturaleza_viva/src/model/animal_model.dart';
 import 'package:naturaleza_viva/src/providers/animales_provider.dart';
 
@@ -9,19 +12,28 @@ class FichaEdicionPage extends StatefulWidget {
 }
 
 class _FichaEdicionPageState extends State<FichaEdicionPage> {
-  final animal =new AnimalModel();
+  AnimalModel animal;
   final formKey = GlobalKey<FormState>();
   final animalProvider = new AnimalesProvider();
+  File foto;
 
   @override
   Widget build(BuildContext context) {
 
-    final int modo = ModalRoute.of(context).settings.arguments;
+    final List<dynamic> argumentos = ModalRoute.of(context).settings.arguments;
+    final int modo = argumentos[0];
+    if(modo == 1){
+      animal = argumentos[1];
+    }else{
+      animal = new AnimalModel();
+    }
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Ficha'),
         actions: [
+          IconButton(icon: Icon(Icons.photo_size_select_actual), onPressed: _selecionarFoto,),
+          IconButton(icon: Icon(Icons.camera_alt),onPressed: _tomarFoto,),
           IconButton(icon: Icon(Icons.save, size: 30,), onPressed: (){_botonGuardar();}),
           IconButton(icon: Icon(Icons.cancel, size: 30,), onPressed: (){Navigator.pushNamed(context, 'home');}),
         ],
@@ -40,10 +52,10 @@ class _FichaEdicionPageState extends State<FichaEdicionPage> {
 
   _contenido(int modo, BuildContext context) {
     if(modo==1){
-      _setteoPruebas(animal);
+      //_setteoPruebas(animal);
       return Column(
         children: [
-          _imagen(context, NetworkImage(animal.fotoPrincipal)),
+          _mostrarFoto(),
           _formulario('Nombre', animal.nombre),
           _formulario('Especie', animal.especie),
           _formulario('Raza', animal.raza),
@@ -57,7 +69,7 @@ class _FichaEdicionPageState extends State<FichaEdicionPage> {
     }else{
       return Column(
         children: [
-          _imagen(context, AssetImage('assets/Logo_sinTitulo.png')),
+          _mostrarFoto(),
           _formulario('Nombre', ''),
           _formulario('Especie', ''),
           _formulario('Raza', ''),
@@ -71,22 +83,19 @@ class _FichaEdicionPageState extends State<FichaEdicionPage> {
     }
   }
 
-  _imagen(BuildContext context, ImageProvider img) {
-    final size = MediaQuery.of(context).size;
-    return Container(
-      child: Row(
-        children: [
-          FadeInImage(
-            placeholder: AssetImage('assets/Logo_sinTitulo.png'),
-            image: img,//AssetImage('assets/Logo_sinTitulo.png'),
-            fit: BoxFit.cover,
-            alignment: Alignment.center,
-            width: size.width*0.5,
-            height: size.height*0.2
-          ),
-        ],
-      )
-    );
+  _mostrarFoto(){
+    if(animal.fotoPrincipal != null){
+      return Image(image: NetworkImage(animal.fotoPrincipal));
+    }else{
+      if( foto != null ){
+        return Image.file(
+          foto,
+          fit: BoxFit.cover,
+          height: 300.0,
+        );
+      }
+      return Image.asset('assets/Logo_sinTitulo.png');
+    }
   }
 
   void _setteoPruebas(AnimalModel animal) {
@@ -180,19 +189,68 @@ class _FichaEdicionPageState extends State<FichaEdicionPage> {
     );
   }
 
-  _botonGuardar() {
+  _botonGuardar() async{
     //Metodo para editar o guardar en la base de datos
     if(!formKey.currentState.validate()) return;
 
     formKey.currentState.save();
 
-    print(animal.estado);
-    print(animal.peso);
+    if(foto != null){
+      var respuesta = await _subirFirebase();
+    }
 
-    animalProvider.crearAnimal(animal);
+    if(animal.id == ''){
+      animalProvider.crearAnimal(animal);
+    }else{
+      animalProvider.editarAnimal(animal);
+    }
+
+    // animalProvider.crearAnimal(animal);
     
   }
 
+  Future<bool> _subirFirebase() async{
+    firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('imagenes');
+      var today = DateTime.now();
+      firebase_storage.UploadTask uploadTask = ref.child(today.toString()+'.jpg').putFile(foto);
+      String url;
+      final espera = await uploadTask.whenComplete(() async{
+        try{
+          url = await ref.child(today.toString()+'.jpg').getDownloadURL();
+        }catch(onError){
+          print("Error");
+        }
+      });
+      animal.fotoPrincipal = url;
+      return true;
+  }
+
   
+
+  void _selecionarFoto() {
+    _procesarImagen(ImageSource.gallery);
+  }
+
+  void _tomarFoto() {
+    _procesarImagen(ImageSource.camera);
+  }
+
+  _procesarImagen(ImageSource origin) async {
+    final _picker = ImagePicker();
+ 
+    final pickedFile = await _picker.getImage(
+      source: origin,
+    );
+    
+    foto = File(pickedFile.path);
+ 
+    if (foto != null) {
+      animal.fotoPrincipal = null;
+    }
+ 
+    setState(() {});
+  }
 }
 

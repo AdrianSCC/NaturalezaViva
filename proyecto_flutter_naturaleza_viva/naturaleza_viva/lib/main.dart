@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:naturaleza_viva/src/bloc/provider_bloc.dart';
 import 'package:naturaleza_viva/src/pages/ficha_edicion.dart';
@@ -7,7 +8,12 @@ import 'package:naturaleza_viva/src/pages/login_page.dart';
 import 'package:naturaleza_viva/src/pages/mapa.dart';
 import 'package:naturaleza_viva/src/pages/registro_page.dart';
  
-void main() => runApp(MyApp());
+void main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+   await Firebase.initializeApp();
+   
+   runApp(MyApp());
+}
  
 class MyApp extends StatelessWidget {
   @override
@@ -16,7 +22,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Material App',
-        initialRoute: 'ficha',
+        initialRoute: 'home',
         routes: {
           'login' : (BuildContext context) => LoginPage(),
           'home' : (BuildContext context) => HomePage(),

@@ -1,48 +1,83 @@
 import 'package:flutter/material.dart';
 import 'package:naturaleza_viva/src/model/animal_model.dart';
+import 'package:naturaleza_viva/src/providers/animales_provider.dart';
 import 'package:naturaleza_viva/src/utils/utils.dart';
 
-class FichaPage extends StatelessWidget {
+class FichaPage extends StatefulWidget {
 
-  final animal =new AnimalModel();
+  @override
+  _FichaPageState createState() => _FichaPageState();
+}
+
+class _FichaPageState extends State<FichaPage> {
+  final animalProvider = new AnimalesProvider();
+  AnimalModel animal;
 
   @override
   Widget build(BuildContext context) {
 
-    _setteoPruebas(animal);
+    final String id = ModalRoute.of(context).settings.arguments;
+
+    //AnimalModel ani = AnimalModel.fromJson(animal);
+    //_setteoPruebas(animal);
     
     return Scaffold(
       appBar: AppBar(
         title: Text('Ficha'),
         actions: [
-          IconButton(icon: Icon(Icons.edit, size: 30,), onPressed: (){Navigator.pushNamed(context, 'edicion', arguments: modoEdicion);}),
+          IconButton(icon: Icon(Icons.edit, size: 30,), onPressed: (){Navigator.pushNamed(context, 'edicion', arguments: [modoEdicion, animal],);}),
           IconButton(icon: Icon(Icons.delete, size: 30,), onPressed: (){}),
         ],
       ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(30),
-          child: Column(
-            children: [
-              _imagen(context),
-              _datos(),
-              _botonSituacion(context, 'Situación'),
-              _botonLiberar(context, 'Liberar'),
-            ],
-          ),
+          child: _crearDatos(id),
         ),
       ),
     );
   }
 
+  _crearDatos(String id){
+    return FutureBuilder(
+      future: animalProvider.buscarAnimal(id),
+      builder: (BuildContext context, AsyncSnapshot<AnimalModel> snapshot){
+        if(snapshot.hasData){
+          animal = snapshot.data;
+          //animal2=animal;
+          return Column(
+            children: [
+              _imagen(context),
+              _datos(),//animal),
+              _botonSituacion(context, 'Situación'),//, animal.liberado),
+              _botonLiberar(context, 'Liberar'),//, animal.liberado),
+              
+            ],
+          );
+        }else{
+          return Center(child: CircularProgressIndicator(),);
+        }
+      }
+    );
+  }
+
   _imagen(BuildContext context) {
+
+    // ImageProvider img;
+
+    // if(animal.fotoPrincipal == null){
+    //   img = AssetImage('assets/Logo_sinTitulo.png');
+    // }else{
+    //   img = NetworkImage(animal.fotoPrincipal);
+    // }
+
     final size = MediaQuery.of(context).size;
     return Container(
       child: Row(
         children: [
           FadeInImage(
             placeholder: AssetImage('assets/Logo_sinTitulo.png'),
-            image: NetworkImage(animal.fotoPrincipal),//AssetImage('assets/Logo_sinTitulo.png'),
+            image: AssetImage('assets/Logo_sinTitulo.png'),
             fit: BoxFit.cover,
             alignment: Alignment.center,
             width: size.width*0.5,
@@ -58,7 +93,7 @@ class FichaPage extends StatelessWidget {
       child: Column(
           children: [
             SizedBox( height: 20),
-            _filaFicha('QR', animal.qr),
+            _filaFicha('QR', animal.id),
             _filaFicha('Nombre', animal.nombre),
             _filaFicha('Especie', animal.especie),
             _filaFicha('Raza', animal.raza),
@@ -95,21 +130,6 @@ class FichaPage extends StatelessWidget {
         SizedBox( height: 20)
       ],
     );
-  }
-
-  void _setteoPruebas(AnimalModel animal) {
-    animal.qr = "codigoqr animal";
-    animal.nombre = 'Perro';
-    animal.raza = 'lince';
-    animal.especie = 'Iberica';
-    animal.estado = 'Bueno';
-    animal.dieta = 'Vegetariano';
-    animal.habitat = 'Bosque español';
-    animal.anotaciones = 'Es un cachorro muy bonito pero del to mamamam aasd re toaijsn';
-    animal.peso = 14;
-    animal.liberado = true;
-    animal.fotoPrincipal = 'https://wwfes.awsassets.panda.org/img/id31_cachorros_de_odrina_3__antonio_liebana_104021.jpg';
-
   }
 
   _botonSituacion(BuildContext context, String s) {
@@ -161,12 +181,5 @@ class FichaPage extends StatelessWidget {
       ],
     );
   }
-
-  
-
-  
-
-
-
 }
 
