@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:naturaleza_viva/src/bloc/provider_bloc.dart';
+import 'package:naturaleza_viva/src/providers/usuario_provider.dart';
 import 'package:naturaleza_viva/src/utils/utils.dart';
 
 class LoginPage extends StatelessWidget {
 
+  final usuarioProvider = new UsuarioProvider();
   
-
   @override
   Widget build(BuildContext context) {
+
+
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -25,6 +28,7 @@ class LoginPage extends StatelessWidget {
       )
     );
   }
+
 
   _logo() {
     return Container(
@@ -84,10 +88,10 @@ class LoginPage extends StatelessWidget {
           child: TextField(
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-              icon: Icon(Icons.alternate_email, color: Colors.green[900]),
+              icon: Icon(Icons.email, color: Colors.green[900]),
               hintText: 'ejemplo@ejemplo.com',
               labelText: 'Correo Electronico',
-              counterText: snapshot.data,
+              //counterText: snapshot.data,
               errorText: snapshot.error,
             ),
             onChanged: bloc.changeEmail,
@@ -107,10 +111,10 @@ class LoginPage extends StatelessWidget {
           child: TextField(
             obscureText: true,
             decoration: InputDecoration(
-              icon: Icon(Icons.security_rounded, color: Colors.green[900]),
+              icon: Icon(Icons.lock, color: Colors.green[900]),
               hintText: '******',
               labelText: 'Password',
-              counterText: snapshot.data,
+              //counterText: snapshot.data,
               errorText: snapshot.error,
             ),
             onChanged: bloc.changePassword,
@@ -143,15 +147,15 @@ class LoginPage extends StatelessWidget {
 
   _login(BuildContext context, LoginBloc bloc) async{
 
-    Navigator.pushReplacementNamed(context, 'home');
+    //Navigator.pushReplacementNamed(context, 'home');
 
-    // Map info = await usuarioProvider.login(bloc.email, bloc.password);
+    Map info = await usuarioProvider.login(bloc.email, bloc.password);
 
-    // if(info['ok']){
-    //   Navigator.pushReplacementNamed(context, 'home');
-    // }else{
-    //   mostrarAlerta(context, 'Los datos introducidos son incorrectos');
-    // }
+    if(info['ok']){
+      Navigator.pushReplacementNamed(context, 'home');
+    }else{
+      mostrarAlerta(context, 'Los datos introducidos son incorrectos');
+    }
 
   }
 
@@ -178,8 +182,6 @@ class LoginPage extends StatelessWidget {
       },
     );
   }
-
- 
 
  
 

@@ -29,7 +29,7 @@ void mostrarAlerta(BuildContext context, String mensaje){
         content: Text(mensaje),
         actions: [
           FlatButton(
-            child: Text('Ok'),
+            child: Text('OK'),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ],
@@ -37,3 +37,23 @@ void mostrarAlerta(BuildContext context, String mensaje){
     }
   );
 }
+
+void mostrarBienvenida(BuildContext context){
+
+  showDialog(
+    context: context,
+    builder: (context){
+      return AlertDialog(
+        title: Text('Bienvenid@ a Naturaleza Viva'),
+        content: Text('Ahora formas parte de esta gran familia'),
+        actions: [
+          FlatButton(
+            child: Text('Acceder'),
+            onPressed: () => Navigator.pushReplacementNamed(context, 'login'),
+          ),
+        ],
+      );
+    }
+  );
+}
+
