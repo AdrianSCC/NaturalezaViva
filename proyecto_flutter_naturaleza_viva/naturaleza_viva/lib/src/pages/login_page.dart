@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:naturaleza_viva/src/bloc/provider_bloc.dart';
 import 'package:naturaleza_viva/src/providers/usuario_provider.dart';
 import 'package:naturaleza_viva/src/utils/utils.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class LoginPage extends StatelessWidget {
 
@@ -10,6 +11,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    _comprobarLocalizacion();
 
     final size = MediaQuery.of(context).size;
     return Scaffold(
@@ -27,6 +29,10 @@ class LoginPage extends StatelessWidget {
         ),
       )
     );
+  }
+
+  _comprobarLocalizacion()async{
+    await Permission.location.request();
   }
 
 
@@ -174,6 +180,7 @@ class LoginPage extends StatelessWidget {
       elevation: 0,
       textColor: Colors.white,
       onPressed: (){
+        _comprobarLocalizacion();
         if(s == "Acceder"){
           Navigator.pushNamed(context, 'home');
         }else{

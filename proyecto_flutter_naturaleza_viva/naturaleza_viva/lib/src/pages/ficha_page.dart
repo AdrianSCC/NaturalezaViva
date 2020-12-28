@@ -149,7 +149,7 @@ class _FichaPageState extends State<FichaPage> {
             ),
             elevation: 0,
             textColor: Colors.white,
-            onPressed: animal.liberado? () => Navigator.pushNamed(context, 'mapa') : null,
+            onPressed: animal.liberado? () => Navigator.pushNamed(context, 'mapa', arguments: [2, animal]) : null,
           ),
         ),
         SizedBox( height: 20)
@@ -174,7 +174,7 @@ class _FichaPageState extends State<FichaPage> {
             ),
             elevation: 0,
             textColor: Colors.white,
-            onPressed: animal.liberado? null : () => true ,
+            onPressed: animal.liberado? null : () => Navigator.pushNamed(context, 'mapa', arguments: [1, animal]) ,
           ),
         ),
         SizedBox( height: 20)
