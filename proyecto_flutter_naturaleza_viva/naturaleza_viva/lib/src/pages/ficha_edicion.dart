@@ -84,18 +84,30 @@ class _FichaEdicionPageState extends State<FichaEdicionPage> {
   }
 
   _mostrarFoto(){
-    if(animal.fotoPrincipal != null){
-      return Image(image: NetworkImage(animal.fotoPrincipal));
+
+    ImageProvider img;
+
+    if(animal.fotoPrincipal == null){
+      img = AssetImage('assets/Logo_sinTitulo.png');
     }else{
-      if( foto != null ){
-        return Image.file(
-          foto,
-          fit: BoxFit.cover,
-          height: 300.0,
-        );
-      }
-      return Image.asset('assets/Logo_sinTitulo.png');
+      img = NetworkImage(animal.fotoPrincipal);
     }
+
+    final size = MediaQuery.of(context).size;
+    return Container(
+      child: Row(
+        children: [
+          FadeInImage(
+            placeholder: AssetImage('assets/Logo_sinTitulo.png'),
+            image: img, //AssetImage('assets/Logo_sinTitulo.png'),
+            fit: BoxFit.cover,
+            alignment: Alignment.center,
+            width: size.width*0.5,
+            height: size.height*0.2
+          ),
+        ],
+      )
+    );
   }
 
   void _setteoPruebas(AnimalModel animal) {
@@ -204,8 +216,7 @@ class _FichaEdicionPageState extends State<FichaEdicionPage> {
     }else{
       animalProvider.editarAnimal(animal);
     }
-
-    // animalProvider.crearAnimal(animal);
+    Navigator.pop(context);
     
   }
 

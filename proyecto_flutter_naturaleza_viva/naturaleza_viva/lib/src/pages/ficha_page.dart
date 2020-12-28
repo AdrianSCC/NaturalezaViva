@@ -63,13 +63,13 @@ class _FichaPageState extends State<FichaPage> {
 
   _imagen(BuildContext context) {
 
-    // ImageProvider img;
+    ImageProvider img;
 
-    // if(animal.fotoPrincipal == null){
-    //   img = AssetImage('assets/Logo_sinTitulo.png');
-    // }else{
-    //   img = NetworkImage(animal.fotoPrincipal);
-    // }
+    if(animal.fotoPrincipal == null){
+      img = AssetImage('assets/Logo_sinTitulo.png');
+    }else{
+      img = NetworkImage(animal.fotoPrincipal);
+    }
 
     final size = MediaQuery.of(context).size;
     return Container(
@@ -77,7 +77,7 @@ class _FichaPageState extends State<FichaPage> {
         children: [
           FadeInImage(
             placeholder: AssetImage('assets/Logo_sinTitulo.png'),
-            image: AssetImage('assets/Logo_sinTitulo.png'),
+            image: img, //AssetImage('assets/Logo_sinTitulo.png'),
             fit: BoxFit.cover,
             alignment: Alignment.center,
             width: size.width*0.5,
