@@ -25,8 +25,7 @@ A continuacion podras acceder al [manual de usuario](https://adrianscc.github.io
 ## Autor
 [Adrián Sánchz-Cruzado Cerro](https://github.com/AdrianSCC) 
 
-<br />
-[GitHub](https://github.com/AdrianSCC)
+
 
 ## Licencia
 
