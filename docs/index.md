@@ -15,10 +15,10 @@
     <!--style="max-width: 540px;"-->
     <div class="card mb-3" >
       <div class="row g-0">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <img src="./images/Acceso.jpeg" class="img-fluid" >
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
           <div class="card-body">
             <h5 class="card-title">Login de Acceso</h5>
             <p class="card-text">En esta pantalla incluiremos nuestras credenciales para asi poder dar paso dentro de la aplicacion y poder ver la ficha de los animales, su situacion y poder liberarlos</p>
@@ -30,10 +30,10 @@
 
     <div class="card mb-3" >
       <div class="row g-0">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <img src="./images/registro.jpeg" class="img-fluid" >
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
           <div class="card-body">
             <h5 class="card-title">Pantalla de registro</h5>
             <p class="card-text">En esta pantalla podremos darnos de alta en el sistema de Naturaleza Viva. Debemos introducir correctamente un correo electronico, nuestro nombre y una contraseña que cuente con al menos 6 caracteres</p>
@@ -44,10 +44,10 @@
 
     <div class="card mb-3" >
       <div class="row g-0">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <img src="./images/Principal.jpeg" class="img-fluid" >
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
           <div class="card-body">
             <h5 class="card-title">Pantalla Principal</h5>
             <p class="card-text">En esta pantalla contamos con todas las opciones que nos ofrede el sistema movil de Naturaleza Viva. Podremos chatear con el sistema central de la protectora, escanear los codigos QR de los animales para ver sus fichas, mirar la agenda semanal y dar de alta a nuevos animales en el sistema</p>
@@ -58,10 +58,10 @@
 
     <div class="card mb-3" >
       <div class="row g-0">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <img src="./images/VistaFichaBuena.jpeg" class="img-fluid" >
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
           <div class="card-body">
             <h5 class="card-title">Ficha de los animales</h5>
             <p class="card-text">En esta pantalla podremos visualizar las fichas de los animales, con todos us datos, previa lectura del codigo QR propio y unico de cada animal</p>
@@ -73,10 +73,10 @@
 
     <div class="card mb-3" >
       <div class="row g-0">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <img src="./images/VistaEdicion.jpeg" class="img-fluid" >
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
           <div class="card-body">
             <h5 class="card-title">Edicion de las fichas</h5>
             <p class="card-text">En esta pantalla podremos editar o eliminar los animales selecionados. Podemos tanto cambiar su foto como los distintos atributos que se reflejan</p>
@@ -87,10 +87,10 @@
 
     <div class="card mb-3" >
       <div class="row g-0">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <img src="./images/mapaLiberar.jpeg" class="img-fluid" >
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
           <div class="card-body">
             <h5 class="card-title">Liberacion</h5>
             <p class="card-text">En esta pantalla podremos liberar al animal selecionado, pulsando el boton de liberar, guardaremos con ello los datos de la localizacion del mismo en nuestra base de datos</p>
@@ -101,10 +101,10 @@
 
     <div class="card mb-3" >
       <div class="row g-0">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <img src="./images/mapaSituacion.jpeg" class="img-fluid" >
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
           <div class="card-body">
             <h5 class="card-title">Seguimiento del animal</h5>
             <p class="card-text">En esta pantalla podremos realizar un seguimiento del animal en tiempo real</p>
