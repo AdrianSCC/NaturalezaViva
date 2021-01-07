@@ -14,7 +14,9 @@ A continuacion podras acceder al [manual de usuario](https://adrianscc.github.io
 ## Herramientas y tecnologías utilizadas
 
 [Flutter](https://flutter.dev/)
+<br />
 [Dart](https://dart.dev/)
+<br />
 [Firebase](https://firebase.google.com/)
 <br />
 <br />
@@ -23,8 +25,8 @@ A continuacion podras acceder al [manual de usuario](https://adrianscc.github.io
 ## Autor
 [Adrián Sánchz-Cruzado Cerro](https://github.com/AdrianSCC) 
 
-
-[![GitHub]](https://github.com/AdrianSCC)
+<br />
+[GitHub](https://github.com/AdrianSCC)
 
 ## Licencia
 
