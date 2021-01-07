@@ -11,17 +11,17 @@
     <title>Hello, world!</title>
   </head>
   <body>
-    <h1>Hello, world!</h1>
-    <div class="card mb-3" style="max-width: 540px;">
+    <h1>MANUAL DE USUARIO</h1>
+    <!--style="max-width: 540px;"-->
+    <div class="card mb-3" >
       <div class="row g-0">
         <div class="col-md-4">
-          <img src="https://github.com/AdrianSCC/NaturalezaViva/blob/main/docs/images/Acceso.jpeg?raw=true" alt="..." width="500" height="500" >
+          <img src="/images/Acceso.jpeg" class="img-fluid" >
         </div>
         <div class="col-md-8">
           <div class="card-body">
             <h5 class="card-title">Login de Acceso</h5>
             <p class="card-text">En esta pantalla incluiremos nuestras credenciales para asi poder dar paso dentro de la aplicacion y poder ver la ficha de los animales, su situacion y poder liberarlos</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
           </div>
         </div>
       </div>
