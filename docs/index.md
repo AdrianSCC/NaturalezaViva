@@ -15,7 +15,7 @@
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row g-0">
         <div class="col-md-4">
-          <img src="/images/Acceso.jpeg" alt="...">
+          <img src="/images/Acceso.jpeg" alt="..." width="500" height="500" >
         </div>
         <div class="col-md-8">
           <div class="card-body">
