@@ -1,11 +1,11 @@
-# NaturalezaViva
+# NaturalezaViva 🌄
 
 Aplicación para la gestion y el seguimiento de animales
 
 [![LICENSE](https://img.shields.io/badge/Lisence-MIT-green)](https://github.com/AdrianSCC/NaturalezaViva/blob/main/LICENSE.md)
 ![GitHub](https://img.shields.io/github/last-commit/AdrianSCC/NaturalezaViva)
 
-## Descripción
+## Descripción 	🐣
 
 Destinado para las protectoras de animales, este sistema gestiona los animales utilizando Firebase, con RealTimeDatabase para la gestion de datos, y Storage para la gestion de documentos.
 
@@ -38,7 +38,7 @@ Puedes encontrar mucho más de cómo utilizar este proyecto en nuestra [Wiki](ht
 
 
 ## Autor✒️
-[Adrián Sánchez-Cruzado Cerro](https://github.com/AdrianSCC) 
+[Adrián Sánchez-Cruzado Cerro](https://github.com/AdrianSCC) :bowtie:
 
 ## Licencia 📄
 
