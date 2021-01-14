@@ -19,25 +19,17 @@ class AnimalesProvider{
 
   Future<AnimalModel> buscarAnimal(String id) async{
     final url = '$_url/animales/$id.json';//?auth=${_prefs.token}';
+    AnimalModel animal = new AnimalModel();
     
     final resp = await http.get(url);
-    final deco = json.decode(resp.body);
+    if(resp.body != "null"){
+      final deco = json.decode(resp.body);
 
-    final animal = AnimalModel.fromJson(deco);
-    animal.id = id;
-    // final Map<String, dynamic> decodedData = json.decode(resp.body);
-    // final List<AnimalModel> animal = new List();
-    
-    // if(decodedData == null) return null;
-
-    // decodedData.forEach((id, prod) {
-
-    //   final animalTemp = AnimalModel.fromJson(prod);
-    //   animalTemp.id = id;
-
-    //   animal.add(animalTemp);
-    // });
-    // print(decodedData);
+      animal = AnimalModel.fromJson(deco);
+      animal.id = id;
+    }else{
+      animal.id = '-1';
+    }
     return animal;
   }
 

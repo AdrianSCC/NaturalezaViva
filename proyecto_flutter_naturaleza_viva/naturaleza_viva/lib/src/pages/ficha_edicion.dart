@@ -16,12 +16,13 @@ class _FichaEdicionPageState extends State<FichaEdicionPage> {
   final formKey = GlobalKey<FormState>();
   final animalProvider = new AnimalesProvider();
   File foto;
+  int modo = 0;
 
   @override
   Widget build(BuildContext context) {
 
     final List<dynamic> argumentos = ModalRoute.of(context).settings.arguments;
-    final int modo = argumentos[0];
+    modo = argumentos[0];
     if(modo == 1){
       animal = argumentos[1];
     }else{
@@ -35,7 +36,7 @@ class _FichaEdicionPageState extends State<FichaEdicionPage> {
           IconButton(icon: Icon(Icons.photo_size_select_actual), onPressed: _selecionarFoto,),
           IconButton(icon: Icon(Icons.camera_alt),onPressed: _tomarFoto,),
           IconButton(icon: Icon(Icons.save, size: 30,), onPressed: (){_botonGuardar();}),
-          IconButton(icon: Icon(Icons.cancel, size: 30,), onPressed: (){Navigator.pushNamed(context, 'home');}),
+          IconButton(icon: Icon(Icons.cancel, size: 30,), onPressed: (){Navigator.pushReplacementNamed(context, 'home');}),
         ],
       ),
       body: SingleChildScrollView(
@@ -52,7 +53,6 @@ class _FichaEdicionPageState extends State<FichaEdicionPage> {
 
   _contenido(int modo, BuildContext context) {
     if(modo==1){
-      //_setteoPruebas(animal);
       return Column(
         children: [
           _mostrarFoto(),
@@ -88,7 +88,11 @@ class _FichaEdicionPageState extends State<FichaEdicionPage> {
     ImageProvider img;
 
     if(animal.fotoPrincipal == null){
-      img = AssetImage('assets/Logo_sinTitulo.png');
+      if(foto != null){
+        img = AssetImage(foto.path);
+      }else{
+        img = AssetImage('assets/Logo_sinTitulo.png');
+      }
     }else{
       img = NetworkImage(animal.fotoPrincipal);
     }
@@ -97,14 +101,7 @@ class _FichaEdicionPageState extends State<FichaEdicionPage> {
     return Container(
       child: Row(
         children: [
-          FadeInImage(
-            placeholder: AssetImage('assets/Logo_sinTitulo.png'),
-            image: img, //AssetImage('assets/Logo_sinTitulo.png'),
-            fit: BoxFit.cover,
-            alignment: Alignment.center,
-            width: size.width*0.5,
-            height: size.height*0.2
-          ),
+          Image(image: img, height: 200, fit: BoxFit.cover,)
         ],
       )
     );
@@ -216,7 +213,11 @@ class _FichaEdicionPageState extends State<FichaEdicionPage> {
     }else{
       animalProvider.editarAnimal(animal);
     }
-    Navigator.pop(context);
+    if(modo == 1){
+      Navigator.pushReplacementNamed(context, 'ficha', arguments: animal.id);
+    }else{
+      Navigator.pushReplacementNamed(context, 'home');
+    }
     
   }
 

@@ -17,16 +17,13 @@ class _FichaPageState extends State<FichaPage> {
   Widget build(BuildContext context) {
 
     final String id = ModalRoute.of(context).settings.arguments;
-
-    //AnimalModel ani = AnimalModel.fromJson(animal);
-    //_setteoPruebas(animal);
     
     return Scaffold(
       appBar: AppBar(
         title: Text('Ficha'),
         actions: [
           IconButton(icon: Icon(Icons.edit, size: 30,), onPressed: (){Navigator.pushNamed(context, 'edicion', arguments: [modoEdicion, animal],);}),
-          IconButton(icon: Icon(Icons.delete, size: 30,), onPressed: (){}),
+          IconButton(icon: Icon(Icons.delete, size: 30,), onPressed: (){animalProvider.borrarAnimal(animal.id);Navigator.pushReplacementNamed(context, 'home');}),
         ],
       ),
       body: SingleChildScrollView(
@@ -44,6 +41,9 @@ class _FichaPageState extends State<FichaPage> {
       builder: (BuildContext context, AsyncSnapshot<AnimalModel> snapshot){
         if(snapshot.hasData){
           animal = snapshot.data;
+          if(animal.id == '-1'){
+            Navigator.pushReplacementNamed(context, 'home');
+          }
           //animal2=animal;
           return Column(
             children: [
@@ -77,7 +77,7 @@ class _FichaPageState extends State<FichaPage> {
         children: [
           FadeInImage(
             placeholder: AssetImage('assets/Logo_sinTitulo.png'),
-            image: img, //AssetImage('assets/Logo_sinTitulo.png'),
+            image: img, 
             fit: BoxFit.cover,
             alignment: Alignment.center,
             width: size.width*0.5,
